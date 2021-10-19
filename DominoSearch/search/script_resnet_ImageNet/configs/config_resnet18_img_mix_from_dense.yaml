@@ -1,0 +1,35 @@
+TRAIN:
+    model: resnet18_sparse
+    N: 16
+    M: 16
+    sparse_optimizer: 1
+    layout : NHWC
+
+    workers: 8
+    batch_size: 64
+    epochs: 120
+
+    lr_mode : cosine
+    base_lr: 0.1
+    finetue_lr : 0.01
+    lra : 0.01
+    warmup_epochs: 5
+    warmup_lr: 0.0
+    targetlr : 0.0
+
+    momentum: 0.0
+    #weight_decay: 0.00005
+    weight_decay : 0.000
+    sparse_decay : 0.1
+
+
+    print_freq: 200
+    model_dir: resnet18/resnet18_M8
+
+    data: your/data/repo
+
+
+
+
+TEST:
+    checkpoint_path : resnet18/pretrained_model/
