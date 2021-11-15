@@ -19,7 +19,7 @@ import numpy as np
 from devkit.sparse_ops import SparseConv,SparseLinear
 sys.path.append(osp.abspath(osp.join(__file__, '../')))
 
-from devkit.core import (init_dist, broadcast_params, average_gradients, load_state_ckpt, load_state, save_checkpoint, LRScheduler,get_sparsities_erdos_renyi,set_sparse_scheme,plot_bar_number_of_parameters,load_pre_train,get_overall_sparsity_with_NM_schemes,summary,conv_flops_counter_hook,normalize_erk_sparsity,update_erk_sparsity)
+from devkit.core import (init_dist, broadcast_params, average_gradients, load_state_ckpt, load_state, save_checkpoint, LRScheduler,get_sparsities_erdos_renyi,set_sparse_scheme,load_pre_train,get_overall_sparsity_with_NM_schemes,summary,conv_flops_counter_hook,normalize_erk_sparsity,update_erk_sparsity)
 
 from devkit.core import mean_var_group,get_layer_wise_dense_flops_params
 
