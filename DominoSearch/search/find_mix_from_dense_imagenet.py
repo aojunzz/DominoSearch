@@ -220,8 +220,9 @@ def main():
     best_prec1 = 0.0
     lr_scheduler = LRScheduler(optimizer, niters, args)
 
+    # print("initialize")
     initialize_mod_threshold(model)
-    # sum_srt,_ = summary(model, input_size=(3, 224, 224))
+    sum_srt,_ = summary(model, input_size=(3, 224, 224))
 
     set_flops(model)
 
@@ -493,49 +494,7 @@ def accuracy(output, target, topk=(1,)):
 
 #================================================================Below are functions for searching===================================================#
 
-
-
-# def check_contributions_gradient_and
-
-def average_two_normalization(norm_dict1,norm_dict2,w1=0.5,w2=0.5):
-    if norm_dict1 == None:
-        return norm_dict2
-    elif norm_dict2 == None :
-        return norm_dict1
-
-    new_dict = {}
-    for layer_name, value in norm_dict1.items():
-        new_dict[layer_name] = (value*w1 + norm_dict2[layer_name]*w2)
-    
-    return new_dict
-
-
-
-def set_apply_penalty_flag(net,flag):
-    for mod in net.modules():
-        if isinstance(mod, SparseConv) or isinstance(mod, SparseLinear):
-            mod.apply_penalty = flag
-
-def set_debug_flag_sparseConv(net,flag):
-    for mod in net.modules():
-        if isinstance(mod, SparseConv) or isinstance(mod, SparseLinear):
-            mod.print_flag = flag
-
-
-def initialize_mod_threshold(net):
-    for mod in net.modules():
-        if isinstance(mod, SparseConv) or isinstance(mod, SparseLinear):
-            if mod.learned_threshold == None:
-                mod.update_learned_sparsity()
-
-
-# def initialize_layer_sparse_vis_dict(net):
-#     for mod in net.modules():
-#         if isinstance(mod, SparseConv) or isinstance(mod, SparseLinear):
-#             layer_name = mod.name
-#             layer_sparse_vis_dict[layer_name] = [0.0]
-
-
+# core function
 def adjust_N_M_of_each_layer_based_on_each_group(net,target_sparsity,epoch,iterations):
 
     continuous_sparsity_dict = {}
@@ -651,6 +610,43 @@ def adjust_N_M_of_each_layer_based_on_each_group(net,target_sparsity,epoch,itera
                             # print('Decision logs')
                             # print(decision_dict)
                         exit(0)
+
+
+
+# def check_contributions_gradient_and
+
+def average_two_normalization(norm_dict1,norm_dict2,w1=0.5,w2=0.5):
+    if norm_dict1 == None:
+        return norm_dict2
+    elif norm_dict2 == None :
+        return norm_dict1
+
+    new_dict = {}
+    for layer_name, value in norm_dict1.items():
+        new_dict[layer_name] = (value*w1 + norm_dict2[layer_name]*w2)
+    
+    return new_dict
+
+
+
+def set_apply_penalty_flag(net,flag):
+    for mod in net.modules():
+        if isinstance(mod, SparseConv) or isinstance(mod, SparseLinear):
+            mod.apply_penalty = flag
+
+def set_debug_flag_sparseConv(net,flag):
+    for mod in net.modules():
+        if isinstance(mod, SparseConv) or isinstance(mod, SparseLinear):
+            mod.print_flag = flag
+
+
+def initialize_mod_threshold(net):
+    for mod in net.modules():
+        if isinstance(mod, SparseConv) or isinstance(mod, SparseLinear):
+            if mod.learned_threshold == None:
+                mod.update_learned_sparsity()
+
+
 
 
 

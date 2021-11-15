@@ -3,10 +3,32 @@ This is repository for codes and models of NeurIPS2021 paper - **DominoSearch: F
 
 Instructions and other materials will be released soon.
 
-## TODO:
-instructions of how to use DominoSearch to find layer-wise N:M schemes
-## TODO:
-Instructions and codes to train sparse neural network with layer-wise N:M
+## Search:
+```
+git clone https://github.com/NM-sparsity/DominoSearch.git
+cd DominoSearch/DominoSearch/search/script_resnet_ImageNet
+```
+We provide several search scripts for different sparse-ratio target, you can specify your own target and change the parameters accordingly.
+Note, you need to first specify your ImageNet [dataset path](https://github.com/NM-sparsity/DominoSearch/blob/main/DominoSearch/search/script_resnet_ImageNet/configs/config_resnet50_img_mix_from_dense.yaml) 
+
+The searching phase could take 2-3 hours, then you will get searched schemes stored in a txt file, which will be needed as input for mixed-sparsity training. 
+
+Below is an example of output formate.
+
+```
+{'SparseConv0_3-64-(7, 7)': [16, 16], 'SparseConv1_64-64-(1, 1)': [16, 16], 'SparseConv2_64-64-(3, 3)': [4, 16], 'SparseConv3_64-256-(1, 1)': [8, 16], 'SparseConv4_64-256-(1, 1)': [8, 16], 'SparseConv5_256-64-(1, 1)': [8, 16], 'SparseConv6_64-64-(3, 3)': [4, 16], 'SparseConv7_64-256-(1, 1)': [8, 16], 'SparseConv8_256-64-(1, 1)': [8, 16], 'SparseConv9_64-64-(3, 3)': [4, 16], 'SparseConv10_64-256-(1, 1)': [8, 16], 'SparseConv11_256-128-(1, 1)': [8, 16], 'SparseConv12_128-128-(3, 3)': [2, 16], 'SparseConv13_128-512-(1, 1)': [8, 16], 'SparseConv14_256-512-(1, 1)': [4, 16], 'SparseConv15_512-128-(1, 1)': [8, 16], 'SparseConv16_128-128-(3, 3)': [4, 16], 'SparseConv17_128-512-(1, 1)': [8, 16], 'SparseConv18_512-128-(1, 1)': [8, 16], 'SparseConv19_128-128-(3, 3)': [4, 16], 'SparseConv20_128-512-(1, 1)': [8, 16], 'SparseConv21_512-128-(1, 1)': [8, 16], 'SparseConv22_128-128-(3, 3)': [2, 16], 'SparseConv23_128-512-(1, 1)': [8, 16], 'SparseConv24_512-256-(1, 1)': [4, 16], 'SparseConv25_256-256-(3, 3)': [2, 16], 'SparseConv26_256-1024-(1, 1)': [4, 16], 'SparseConv27_512-1024-(1, 1)': [4, 16], 'SparseConv28_1024-256-(1, 1)': [4, 16], 'SparseConv29_256-256-(3, 3)': [2, 16], 'SparseConv30_256-1024-(1, 1)': [4, 16], 'SparseConv31_1024-256-(1, 1)': [4, 16], 'SparseConv32_256-256-(3, 3)': [2, 16], 'SparseConv33_256-1024-(1, 1)': [4, 16], 'SparseConv34_1024-256-(1, 1)': [4, 16], 'SparseConv35_256-256-(3, 3)': [2, 16], 'SparseConv36_256-1024-(1, 1)': [4, 16], 'SparseConv37_1024-256-(1, 1)': [4, 16], 'SparseConv38_256-256-(3, 3)': [2, 16], 'SparseConv39_256-1024-(1, 1)': [4, 16], 'SparseConv40_1024-256-(1, 1)': [4, 16], 'SparseConv41_256-256-(3, 3)': [2, 16], 'SparseConv42_256-1024-(1, 1)': [4, 16], 'SparseConv43_1024-512-(1, 1)': [4, 16], 'SparseConv44_512-512-(3, 3)': [2, 16], 'SparseConv45_512-2048-(1, 1)': [4, 16], 'SparseConv46_1024-2048-(1, 1)': [2, 16], 'SparseConv47_2048-512-(1, 1)': [4, 16], 'SparseConv48_512-512-(3, 3)': [2, 16], 'SparseConv49_512-2048-(1, 1)': [4, 16], 'SparseConv50_2048-512-(1, 1)': [4, 16], 'SparseConv51_512-512-(3, 3)': [2, 16], 'SparseConv52_512-2048-(1, 1)': [4, 16], 'Linear0_2048-1000': [4, 16]}
+```
+
+## Train:
+After getting the layer-wise sparse schemes, we need to fine-tune with the schemes to recover the accuracy. The training code is based on [NM-sparsity](https://github.com/NM-sparsity/NM-sparsity), where we made some changes to support flexible N:M schemes.
+
+
+Below is an example of training layer-wise sparse resnet50 with 80% overall sparsity. 
+```
+cd DominoSearch\DominoSearch\train\classification_sparsity_level\train_imagenet
+ python -m torch.distributed.launch --nproc_per_node=8 ../train_imagenet.py --config ./configs/config_resnet50.yaml  --base_lr 0.01 --decay 0.0005 --epochs 120 --schemes_file ./schemes/resnet50_M16_0.80.txt --model_dir ./resnet50/resnet50_0.80_M16
+```
+
 
 
 
@@ -36,5 +58,11 @@ We provide the trained models of the experiments. Please check our paper for det
 
 
 ### Citation
-
-TODO
+@inproceedings{
+sun2021dominosearch,
+title={DominoSearch: Find layer-wise fine-grained N:M sparse schemes from dense neural networks},
+author={Wei Sun and Aojun Zhou and Sander Stuijk and Rob G. J. Wijnhoven and Andrew Nelson and Hongsheng Li and Henk Corporaal},
+booktitle={Thirty-Fifth Conference on Neural Information Processing Systems},
+year={2021},
+url={https://openreview.net/forum?id=IGrC6koW_g}
+}

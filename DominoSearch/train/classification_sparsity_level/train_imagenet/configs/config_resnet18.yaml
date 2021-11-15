@@ -1,0 +1,38 @@
+TRAIN:
+    model: resnet18_sparse
+    N: 4
+    M: 16
+
+
+    workers: 3
+    batch_size: 256
+    #epochs: 60
+
+    
+
+    lr_mode : cosine
+    #base_lr: 0.1
+    warmup_epochs: 5
+    warmup_lr: 0.0
+    targetlr : 0.0
+
+    momentum: 0.9
+    #weight_decay: 0.00005
+    weight_decay: 0.00005
+    # original 0.0002
+    #decay:  0.002
+
+
+    print_freq: 200
+
+    train_root: data
+    train_source: data
+    val_root: data
+    val_source: data
+
+
+
+
+
+TEST:
+    checkpoint_path : resnet50/pretrained_model/

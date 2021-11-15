@@ -1,0 +1,1 @@
+python -m torch.distributed.launch --nproc_per_node=8 ../train_imagenet.py --config ./configs/config_resnet50.yaml  --base_lr 0.01 --decay 0.0005 --epochs 120 --schemes_file ./schemes/resnet50_M16_0.80.txt --model_dir ./resnet50/resnet50_0.80_M16
