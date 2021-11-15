@@ -57,7 +57,9 @@ We provide the trained models of the experiments. Please check our paper for det
 
 
 
-### Citation
+# Citation
+
+```
 @inproceedings{
 sun2021dominosearch,
 title={DominoSearch: Find layer-wise fine-grained N:M sparse schemes from dense neural networks},
@@ -66,3 +68,4 @@ booktitle={Thirty-Fifth Conference on Neural Information Processing Systems},
 year={2021},
 url={https://openreview.net/forum?id=IGrC6koW_g}
 }
+```
