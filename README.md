@@ -69,3 +69,12 @@ year={2021},
 url={https://openreview.net/forum?id=IGrC6koW_g}
 }
 ```
+
+```
+@inproceedings{zhou2021,
+    title={Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch},
+    author={Zhou, Aojun and Ma, Yukun and Zhu, Junnan and Liu, Jianbo and Zhang, Zhijie and Yuan, Kun and Sun, Wenxiu and Li, Hongsheng},
+    booktitle={International Conference on Learning Representations},
+    year={2021},
+}
+```
