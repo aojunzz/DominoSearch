@@ -20,7 +20,7 @@ Below is an example of output formate.
 ```
 
 ## Train:
-After getting the layer-wise sparse schemes, we need to fine-tune with the schemes to recover the accuracy. The training code is based on [NM-sparsity](https://github.com/NM-sparsity/NM-sparsity), where we made some changes to support flexible N:M schemes.
+After getting the layer-wise sparse schemes, we need to fine-tune with the schemes to recover the accuracy. The training code is based on [NM-sparsity](https://github.com/NM-sparsity/NM-sparsity)/ [ICLR2021 paper](https://arxiv.org/abs/2102.04010), where we made some changes to support flexible N:M schemes. 
 
 
 Below is an example of training layer-wise sparse resnet50 with 80% overall sparsity. 
@@ -58,7 +58,6 @@ We provide the trained models of the experiments. Please check our paper for det
 
 
 # Citation
-
 ```
 @inproceedings{
 sun2021dominosearch,
@@ -67,14 +66,5 @@ author={Wei Sun and Aojun Zhou and Sander Stuijk and Rob G. J. Wijnhoven and And
 booktitle={Thirty-Fifth Conference on Neural Information Processing Systems},
 year={2021},
 url={https://openreview.net/forum?id=IGrC6koW_g}
-}
-```
-
-```
-@inproceedings{zhou2021,
-title={Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch},
-author={Zhou, Aojun and Ma, Yukun and Zhu, Junnan and Liu, Jianbo and Zhang, Zhijie and Yuan, Kun and Sun, Wenxiu and Li, Hongsheng},
-booktitle={International Conference on Learning Representations},
-year={2021},
 }
 ```
