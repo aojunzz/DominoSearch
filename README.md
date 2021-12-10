@@ -66,3 +66,6 @@ year={2021},
 url={https://openreview.net/forum?id=IGrC6koW_g}
 }
 ```
+
+# References
+* [Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch](https://openreview.net/forum?id=K9bw7vqp_s)
